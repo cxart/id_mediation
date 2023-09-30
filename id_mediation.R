@@ -83,7 +83,7 @@ df <- fulldata %>%
 # view structure
 df
 
-# Direct and total effects
+# Direct and total effects (cluster SEs by ID)
 
 mediator_model <- lm.cluster(DV2 ~ treat, data = df, cluster = "id")
 summary(mediator_model)
