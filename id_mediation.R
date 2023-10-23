@@ -85,10 +85,10 @@ df
 
 # Direct and total effects (cluster SEs by ID)
 
-mediator_model <- lm.cluster(DV2 ~ treat, data = df, cluster = "id")
+mediator_model <- lm.cluster(mediator ~ treat, data = df, cluster = "id")
 summary(mediator_model)
 
-outcome_model <- lm.cluster(DV1 ~ treat + DV2, data = df, cluster = "id")
+outcome_model <- lm.cluster(DV ~ treat + mediator, data = df, cluster = "id")
 summary(outcome_model)
 
 # Block bootstrap mediation analysis
@@ -99,8 +99,8 @@ set.seed(12345)  # for reproducibility
 
 bootresults = boot(data = df,
                    statistic = indirectsaved,
-                   formula2 = DV2 ~ treat,
-                   formula3 = DV1 ~ treat + DV2,
+                   formula2 = mediator ~ treat,
+                   formula3 = DV ~ treat + mediator,
                    R = 10000)
 
 # Print results
